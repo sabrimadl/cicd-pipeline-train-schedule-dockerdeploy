@@ -13,12 +13,10 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_hub_login', usernameVariable: 'USERNAME')]) {
-                    script {
-                        app = docker.build("$USERNAME/train-schedule")
-                        app.inside {
-                            sh 'echo $(curl localhost:8080)'
-                        }
+                script {
+                    app = docker.build("sabriadl/train-schedule")
+                    app.inside {
+                        sh 'echo $(curl localhost:8080)'
                     }
                 }
             }
